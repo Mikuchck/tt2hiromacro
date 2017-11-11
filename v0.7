@@ -77,7 +77,9 @@ var #enableSkills 1
 var #stopMasterAfterSkillsUnlocked 1
 
 var #hsLvl 5
+var #dsLvl 5
 var #hsLoop 0 
+var #dsLoop 0 
 
 //press given skills every X seconds
 var #intervalCrit 20
@@ -303,6 +305,7 @@ var #resultClanQuest 0
 	#secondsTotal = 0
 	#minutes = 0
 	#hsLoop = 0
+	#dsLoop = 0
 	#initialLoopForStart = 0
         rand #prestigeAfterXMinutes #lowerPrestigeTime #higherPrestigeTime
 goto :init
@@ -644,17 +647,27 @@ goto :clanQuestClose
 
 	
 	
-//var #colorSkillNotBought 5 6 7
+//var #colorSkillNotBought 5 6 7 8 9
 //var #colorSkillCanBeLeveled 20
-//var #colorSkillGray -116 -117 -118 -119 
+//var #colorSkillGray -114 -115 -116 -117 -118 -119 
 	
 	
 
 // ----------- lvl hs
 :lvlHSToCheck
+		sleep 1000
 		getRGB #colorRed #colorGreen #colorBlue 466 650
-		if #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 20
-			if #hsLvl >= #hsLoop
+		toast color: #colorBlue
+		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+			goto :lvlUpHS
+		elseif #colorBlue == -114 or #colorBlue == -115 or #colorBlue == -116 or #colorBlue == -117 or #colorBlue == -118 or #colorBlue == -119
+			toast Not enought gold to buy Heavenly strike
+			goto :checkSkills
+		endif
+	goto :checkSkills
+	
+:lvlUpHS
+			if #hsLvl >= #hsLoop + 2
 				toast hs ma lvl #hsLoop
 				// first skill
 				sleep #btnDelay
@@ -663,18 +676,46 @@ goto :clanQuestClose
 				sleep #btnDelay
 				#time = #time + #btnDelay
 				touchUp 0
-				sleep 1000
 				#hsLoop = #hsLoop + 1
-				sleep 3000
+				sleep 5000
 				goto :lvlHSToCheck
 			else
 				toast HS is at desired lvl
 				goto :checkSkills
 			endif
-		elseif #colorBlue == -116 or #colorBlue == -117 or #colorBlue == -118 or #colorBlue == -119
+	goto :checkSkills
+	
+// ----------- lvl DS
+:lvlDSToCheck
+		sleep 1000
+		getRGB #colorRed #colorGreen #colorBlue 450 710
+		toast color: #colorBlue
+		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+			goto :lvlUpDS
+		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			toast Not enought gold to buy Death strike
 			goto :checkSkills
 		endif
 	goto :checkSkills
+	
+:lvlUpDS
+			if #dsLvl >= #dsLoop + 2
+				toast Death Strike lvl is #dsLoop
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchDown 0 466 710
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchUp 0
+				#dsLoop = #dsLoop + 1
+				sleep 5000
+				goto :lvlDSToCheck
+			else
+				toast Death strike is at desired lvl
+				goto :checkSkills
+			endif
+	goto :checkSkills
+	
 		
 :checkSkills
 
@@ -691,11 +732,24 @@ goto :clanQuestClose
 
 	if #skillCheckStepper == 1
 		goto :lvlHSToCheck
+	elseif #skillCheckStepper == 2
+		goto :lvlDSToCheck
 	elseif #skillCheckStepper <= 6
 		goto :checkSkillsUnlock
 	endif
 
 	//slide back
+	touchDown 1 280 650
+	sleep 200
+	touchMove 1 280 600
+	sleep 50
+	touchMove 1 280 700
+	sleep 50
+	touchMove 1 280 750
+	sleep 50
+	touchMove 1 280 780
+	touchUp 1
+	#time = #time + 350
 	touchDown 1 280 650
 	sleep 200
 	touchMove 1 280 600
