@@ -177,6 +177,12 @@ var #homMaxOutSkill 0
 var #fsMaxOutSkill 0
 var #wcMaxOutSkill 0
 var #scMaxOutSkill 0
+	#hsLvl = #hsLvl - 1
+	#dsLvl = #dsLvl - 1
+	#homLvl = #homLvl - 1
+	#fsLvl = #fsLvl - 1
+	#wcLvl = #wcLvl - 1
+	#scLvl = #scLvl - 1
 
 // ----------- Delays
 var #btnDelay 150
@@ -368,12 +374,6 @@ goto :init
 	touchUp 0
 	sleep #menuSlideDelay
 	#time = #time + #menuSlideDelay
-	#hsLvl = #hsLvl - 1
-	#dsLvl = #dsLvl - 1
-	#homLvl = #homLvl - 1
-	#fsLvl = #fsLvl - 1
-	#wcLvl = #wcLvl - 1
-	#scLvl = #scLvl - 1
 	
 	if #runActionsOnStart == 1
 		goto :runActions
