@@ -76,7 +76,7 @@ var #enableSkills 1
 //prevent sword master leveling after all skills are unlocked ( > lvl 600)
 var #stopMasterAfterSkillsUnlocked 1
 
-var #hsLvl 15
+var #hsLvl 5
 var #hsLoop 0 
 
 //press given skills every X seconds
@@ -186,9 +186,11 @@ var #colorGray 2695200
 var #colorMana -69345
 //var #colorItemBossActive 2432264 127 70
 var #colorFairyWatch -3103447
-var #colorSkillNotBought 633845
-var #colorSkillCanBeLeveled 1340143
-var #colorSkillGray -7500402
+
+//var #colorSkillNotBought 6
+//var ##colorSkillNotBoughtSecond 7
+//var #colorSkillCanBeLeveled 20 
+//var #colorSkillGray -7500402
 
 // ----------- TimeSets
 var #timeLastActionRun 0
@@ -642,32 +644,38 @@ goto :clanQuestClose
 
 	
 	
-	var #colorSkillNotBought
-var #colorSkillCanBeLeveled
-var #colorSkillGray
+//var #colorSkillNotBought 5 6 7
+//var #colorSkillCanBeLeveled 20
+//var #colorSkillGray -116 -117 -118 -119 
 	
 	
 
 // ----------- lvl hs
 :lvlHSToCheck
-		if #hsLvl > #hsLoop
-			toast hs ma lvl #hsLoop
-			// first skill
-			sleep #btnDelay
-			#time = #time + #btnDelay
-			touchDown 0 466 650
-			sleep #btnDelay
-			#time = #time + #btnDelay
-			touchUp 0
-			sleep 1000
-			#hsLoop = #hsLoop + 1
-			goto :lvlHSToCheck
-		else
-			toast wszystko ok
+		getRGB #colorRed #colorGreen #colorBlue 466 650
+		if #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 20
+			if #hsLvl >= #hsLoop
+				toast hs ma lvl #hsLoop
+				// first skill
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchDown 0 466 650
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchUp 0
+				sleep 1000
+				#hsLoop = #hsLoop + 1
+				sleep 3000
+				goto :lvlHSToCheck
+			else
+				toast HS is at desired lvl
+				goto :checkSkills
+			endif
+		elseif #colorBlue == -116 or #colorBlue == -117 or #colorBlue == -118 or #colorBlue == -119
 			goto :checkSkills
 		endif
+	goto :checkSkills
 		
-
 :checkSkills
 
 	if #prestige == 0 and #startSkillCheckNow == 0
