@@ -692,7 +692,7 @@ goto :clanQuestClose
 	
 :lvlUpHS
 			if #hsLvl >= #hsLoop
-				sleep 500
+				sleep 200
 				// first skill
 				sleep #btnDelay
 				#time = #time + #btnDelay
@@ -712,7 +712,7 @@ goto :clanQuestClose
 	
 // ----------- lvl DS
 :lvlDSToCheck
-		sleep 1000
+		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpDS
@@ -731,7 +731,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#dsLoop = #dsLoop + 1
-				sleep 500
+				sleep 200
 				goto :lvlDSToCheck
 			else
 				#dsMaxOutSkill = 1
@@ -761,7 +761,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#homLoop = #homLoop + 1
-				sleep 500
+				sleep 200
 				goto :lvlHOMToCheck
 			else
 				#homMaxOutSkill = 1
@@ -791,7 +791,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#fsLoop = #fsLoop + 1
-				sleep 500
+				sleep 200
 				goto :lvlFSToCheck
 			else
 				#fsMaxOutSkill = 1
@@ -821,7 +821,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#wcLoop = #wcLoop + 1
-				sleep 500
+				sleep 200
 				goto :lvlWCToCheck
 			else
 				#wcMaxOutSkill = 1
@@ -851,7 +851,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#scLoop = #scLoop + 1
-				sleep 500
+				sleep 200
 				goto :lvlSCToCheck
 			else
 				#scMaxOutSkill = 1
