@@ -170,6 +170,12 @@ var #homLoop 0
 var #fsLoop 0
 var #wcLoop 0
 var #scLoop 0
+var #hsMaxOutSkill 0
+var #dsMaxOutSkill 0
+var #homMaxOutSkill 0
+var #fsMaxOutSkill 0
+var #wcMaxOutSkill 0
+var #scMaxOutSkill 0
 
 // ----------- Delays
 var #btnDelay 150
@@ -319,6 +325,12 @@ var #resultClanQuest 0
 	#fsLoop = 0
 	#wcLoop = 0
 	#scLoop = 0
+	#hsMaxOutSkill = 0
+	#dsMaxOutSkill = 0
+	#homMaxOutSkill = 0
+	#fsMaxOutSkill = 0
+	#wcMaxOutSkill = 0
+	#scMaxOutSkill = 0
 	#initialLoopForStart = 0
         rand #prestigeAfterXMinutes #lowerPrestigeTime #higherPrestigeTime
 goto :init
@@ -691,6 +703,7 @@ goto :clanQuestClose
 				sleep 500
 				goto :lvlHSToCheck
 			else
+				#hsMaxOutSkill = 1
 				toast Heavenly strike is at desired lvl
 				goto :checkSkills
 			endif
@@ -720,6 +733,7 @@ goto :clanQuestClose
 				sleep 500
 				goto :lvlDSToCheck
 			else
+				#dsMaxOutSkill = 1
 				toast Death strike is at desired lvl
 				goto :checkSkillsSlideDown
 			endif
@@ -749,6 +763,7 @@ goto :clanQuestClose
 				sleep 500
 				goto :lvlHOMToCheck
 			else
+				#homMaxOutSkill = 1
 				toast Hand of midas is at desired lvl
 				goto :checkSkillsSlideDown
 			endif
@@ -778,6 +793,7 @@ goto :clanQuestClose
 				sleep 500
 				goto :lvlFSToCheck
 			else
+				#fsMaxOutSkill = 1
 				toast Fire sword is at desired lvl
 				goto :checkSkillsSlideDown
 			endif
@@ -807,6 +823,7 @@ goto :clanQuestClose
 				sleep 500
 				goto :lvlWCToCheck
 			else
+				#wcMaxOutSkill = 1
 				toast War cry is at desired lvl
 				goto :checkSkillsSlideDown
 			endif
@@ -836,6 +853,7 @@ goto :clanQuestClose
 				sleep 500
 				goto :lvlSCToCheck
 			else
+				#scMaxOutSkill = 1
 				toast Shadow clone is at desired lvl
 				goto :checkSkillsSlideDown
 			endif
@@ -848,7 +866,7 @@ goto :clanQuestClose
 		goto :checkSkillsFinish
 	endif
 
-	if #skillsUnlocked == 5 and #justUnlockSkills == 1
+	if #hsMaxOutSkill == 1 and #dsMaxOutSkill == 1 and #homMaxOutSkill == 1 and #fsMaxOutSkill == 1 and #wcMaxOutSkill == 1 and #scMaxOutSkill == 1 and #justUnlockSkills == 1
 		toast skills unlocked, stop now until next prestige
 		goto :checkSkillsFinish
 	endif
