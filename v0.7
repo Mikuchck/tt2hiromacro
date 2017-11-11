@@ -76,10 +76,13 @@ var #enableSkills 1
 //prevent sword master leveling after all skills are unlocked ( > lvl 600)
 var #stopMasterAfterSkillsUnlocked 1
 
-var #hsLvl 5
-var #dsLvl 5
-var #hsLoop 0 
-var #dsLoop 0 
+var #hsLvl 16
+var #dsLvl 1
+var #homLvl 2
+var #fsLvl 1
+var #wcLvl 2
+var #scLvl 1
+
 
 //press given skills every X seconds
 var #intervalCrit 20
@@ -161,6 +164,12 @@ var #checkRunning 0
 var #clanQuestCount 0
 var #calc1 0
 var #recheckClanQuest 0
+var #hsLoop 0 
+var #dsLoop 0
+var #homLoop 0
+var #fsLoop 0
+var #wcLoop 0
+var #scLoop 0
 
 // ----------- Delays
 var #btnDelay 150
@@ -306,6 +315,10 @@ var #resultClanQuest 0
 	#minutes = 0
 	#hsLoop = 0
 	#dsLoop = 0
+	#homLoop = 0
+	#fsLoop = 0
+	#wcLoop = 0
+	#scLoop = 0
 	#initialLoopForStart = 0
         rand #prestigeAfterXMinutes #lowerPrestigeTime #higherPrestigeTime
 goto :init
@@ -342,6 +355,12 @@ goto :init
 	touchUp 0
 	sleep #menuSlideDelay
 	#time = #time + #menuSlideDelay
+	#hsLvl = #hsLvl - 1
+	#dsLvl = #dsLvl - 1
+	#homLvl = #homLvl - 1
+	#fsLvl = #fsLvl - 1
+	#wcLvl = #wcLvl - 1
+	#scLvl = #scLvl - 1
 	
 	if #runActionsOnStart == 1
 		goto :runActions
@@ -643,21 +662,13 @@ goto :clanQuestClose
 		#clanQuestCount = 0
 		goto :start
 	endif
-
-
-	
-	
-//var #colorSkillNotBought 5 6 7 8 9
-//var #colorSkillCanBeLeveled 20
-//var #colorSkillGray -114 -115 -116 -117 -118 -119 
 	
 	
 
 // ----------- lvl hs
 :lvlHSToCheck
-		sleep 1000
+		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 466 650
-		toast color: #colorBlue
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHS
 		elseif #colorBlue == -114 or #colorBlue == -115 or #colorBlue == -116 or #colorBlue == -117 or #colorBlue == -118 or #colorBlue == -119
@@ -667,8 +678,8 @@ goto :clanQuestClose
 	goto :checkSkills
 	
 :lvlUpHS
-			if #hsLvl >= #hsLoop + 2
-				toast hs ma lvl #hsLoop
+			if #hsLvl >= #hsLoop
+				sleep 500
 				// first skill
 				sleep #btnDelay
 				#time = #time + #btnDelay
@@ -677,10 +688,10 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#hsLoop = #hsLoop + 1
-				sleep 5000
+				sleep 500
 				goto :lvlHSToCheck
 			else
-				toast HS is at desired lvl
+				toast Heavenly strike is at desired lvl
 				goto :checkSkills
 			endif
 	goto :checkSkills
@@ -689,18 +700,16 @@ goto :clanQuestClose
 :lvlDSToCheck
 		sleep 1000
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		toast color: #colorBlue
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpDS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Death strike
-			goto :checkSkills
+			goto :checkSkillsSlideDown
 		endif
 	goto :checkSkills
 	
 :lvlUpDS
-			if #dsLvl >= #dsLoop + 2
-				toast Death Strike lvl is #dsLoop
+			if #dsLvl >= #dsLoop
 				sleep #btnDelay
 				#time = #time + #btnDelay
 				touchDown 0 466 710
@@ -708,15 +717,131 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#dsLoop = #dsLoop + 1
-				sleep 5000
+				sleep 500
 				goto :lvlDSToCheck
 			else
 				toast Death strike is at desired lvl
-				goto :checkSkills
+				goto :checkSkillsSlideDown
 			endif
 	goto :checkSkills
 	
-		
+// ----------- lvl HOM
+:lvlHOMToCheck
+		sleep 500
+		getRGB #colorRed #colorGreen #colorBlue 450 710
+		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+			goto :lvlUpHOM
+		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			toast Not enought gold to buy HOM
+			goto :checkSkillsSlideDown
+		endif
+	goto :checkSkillsSlideDown
+	
+:lvlUpHOM
+			if #homLvl >= #homLoop
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchDown 0 466 710
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchUp 0
+				#homLoop = #homLoop + 1
+				sleep 500
+				goto :lvlHOMToCheck
+			else
+				toast Hand of midas is at desired lvl
+				goto :checkSkillsSlideDown
+			endif
+	goto :checkSkillsSlideDown
+
+// ----------- lvl FS
+:lvlFSToCheck
+		sleep 500
+		getRGB #colorRed #colorGreen #colorBlue 450 710
+		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+			goto :lvlUpFS
+		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			toast Not enought gold to buy Fire sword
+			goto :checkSkillsSlideDown
+		endif
+	goto :checkSkillsSlideDown
+	
+:lvlUpFS
+			if #fsLvl >= #fsLoop
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchDown 0 466 710
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchUp 0
+				#fsLoop = #fsLoop + 1
+				sleep 500
+				goto :lvlFSToCheck
+			else
+				toast Fire sword is at desired lvl
+				goto :checkSkillsSlideDown
+			endif
+	goto :checkSkillsSlideDown
+
+// ----------- lvl WC
+:lvlWCToCheck
+		sleep 500
+		getRGB #colorRed #colorGreen #colorBlue 450 710
+		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+			goto :lvlUpWC
+		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			toast Not enought gold to buy War cry
+			goto :checkSkillsSlideDown
+		endif
+	goto :checkSkillsSlideDown
+	
+:lvlUpWC
+			if #wcLvl >= #wcLoop
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchDown 0 466 710
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchUp 0
+				#wcLoop = #wcLoop + 1
+				sleep 500
+				goto :lvlWCToCheck
+			else
+				toast War cry is at desired lvl
+				goto :checkSkillsSlideDown
+			endif
+	goto :checkSkillsSlideDown
+
+// ----------- lvl SC
+:lvlSCToCheck
+		sleep 500
+		getRGB #colorRed #colorGreen #colorBlue 450 710
+		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+			goto :lvlUpSC
+		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			toast Not enought gold to buy Shadow Clone
+			goto :checkSkillsSlideDown
+		endif
+	goto :checkSkillsSlideDown
+	
+:lvlUpSC
+			if #scLvl >= #scLoop
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchDown 0 466 710
+				sleep #btnDelay
+				#time = #time + #btnDelay
+				touchUp 0
+				#scLoop = #scLoop + 1
+				sleep 500
+				goto :lvlSCToCheck
+			else
+				toast Shadow clone is at desired lvl
+				goto :checkSkillsSlideDown
+			endif
+	goto :checkSkillsSlideDown
+
+
 :checkSkills
 
 	if #prestige == 0 and #startSkillCheckNow == 0
@@ -734,6 +859,14 @@ goto :clanQuestClose
 		goto :lvlHSToCheck
 	elseif #skillCheckStepper == 2
 		goto :lvlDSToCheck
+	elseif #skillCheckStepper == 3
+		goto :lvlHOMToCheck
+	elseif #skillCheckStepper == 4
+		goto :lvlFSToCheck
+	elseif #skillCheckStepper == 5
+		goto :lvlWCToCheck
+	elseif #skillCheckStepper == 6
+		goto :lvlSCToCheck
 	elseif #skillCheckStepper <= 6
 		goto :checkSkillsUnlock
 	endif
@@ -749,7 +882,8 @@ goto :clanQuestClose
 	sleep 50
 	touchMove 1 280 780
 	touchUp 1
-	#time = #time + 350
+	#time = #time + 1350
+	sleep 1000
 	touchDown 1 280 650
 	sleep 200
 	touchMove 1 280 600
