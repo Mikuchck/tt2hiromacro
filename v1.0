@@ -1,5 +1,5 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389 [ v1.2 ]
-// -  Changes by Mikuchck v0.62
+// -  Changes by Mikuchck v0.7
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -1384,18 +1384,10 @@ goto :pressSkills
 	sleep #hitDelay
 	#time = #time + #hitDelay
 goto :start
-// -  changelog
-// -  v0.1
-// added random time to prestige
-// fixed egg hatch
-// -  v0.2
-// bugfixes
-// -  v0.3
-// fixed maxout hero
-// added percentage values for mana to use skill
-
 
 // -----TODO LIST-----
-// hs lvling
 // random time to use skill
 // random time to run acctions
+
+// -----BUGS-----
+// Skill dont lvl up if its in use (dont really know how to fix it)
