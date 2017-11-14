@@ -1,5 +1,6 @@
-// -  Tap Titans 2 AdvancedClickBot by Tune389 [ v1.2 ]
-// -  Changes by Mikuchck v0.7
+// -  Tap Titans 2 AdvancedClickBot by Tune389
+// -  Improved by Mikuchck
+// -  Changes by Mikuchck v1.1
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -27,6 +28,9 @@ var #enableTapping 1
 //level ms, heroes, skills every x minutes
 var #runActionsEveryXMinutes 5
 var #levelMainHero 1
+// skill update interval must be lover then runActionsEveryXMinutes
+var #levelSkillsUpEveryXMinute 3
+
 //; 5 = (default)
 //; 1-99 = in Minutes
 
@@ -34,7 +38,7 @@ var #runActionsOnStart 1
 //; 1 = (default) run actions on script start
 //; 0 = run actions after given run time above
 
-var #percentManaToUseSkill 20
+var #percentManaToUseSkill 50
 // Script is clicking a bit faster so set it like 2% higher but dont set it above 100%
 var #fullManaSkill 7
 //; if mana above set percentage press skill
@@ -79,25 +83,25 @@ var #stopMasterAfterSkillsUnlocked 1
 
 var #hsLvl 16
 var #dsLvl 1
-var #homLvl 2
+var #homLvl 1
 var #fsLvl 1
-var #wcLvl 2
-var #scLvl 1
+var #wcLvl 1
+var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
 var #startUsingDSAfter 20
 var #startUsingHOMAfter 20
-var #startUsingFSAfter 0
-var #startUsingWCAfter 15
+var #startUsingFSAfter 20
+var #startUsingWCAfter 20
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
 var #intervalCrit 20
-var #intervalFireBlade 0
+var #intervalFireBlade 20
 var #intervalMidas 20
 var #intervalHeroes 20
-var #intervalShadowClone 0
+var #intervalShadowClone 20
 
 //just level each skill once
 var #justUnlockSkills 1
@@ -184,6 +188,10 @@ var #homMaxOutSkill 0
 var #fsMaxOutSkill 0
 var #wcMaxOutSkill 0
 var #scMaxOutSkill 0
+var #levelSkillsUpLastPress 0
+var #levelSkillsUpLastDiff 0
+
+
 	#hsLvl = #hsLvl - 1
 	#dsLvl = #dsLvl - 1
 	#homLvl = #homLvl - 1
@@ -217,6 +225,7 @@ var #colorGray 2695200
 var #colorMana -69345
 var #colorMana2 -69602
 var #colorMana3 -67149
+var #colorSkillAlmostDone 3552822
 
 //var #colorItemBossActive 2432264 127 70
 var #colorFairyWatch -3103447
@@ -260,6 +269,7 @@ var #resultClanQuest 0
 
 	#timeDiff = #minutes - #timeLastActionRun
 	#timeDiffHero = #minutes - #timeLastMainHero
+	#levelSkillsUpLastDiff = #minutes - #levelSkillsUpLastPress
 	
 	//add general execution delays
 	#time = #time + #timeScaleAddition
@@ -298,6 +308,38 @@ var #resultClanQuest 0
 		if #color1 == #colorWhite or #color1 == #colorMana or #color1 == #colorMana2 or #color1 == #colorMana3
 			toastś Mana full starting something and dont waste regen time
 			goto :startSkill
+		endif
+	endif
+	
+	if #levelSkillsUpLastDiff >= #levelSkillsUpEveryXMinute and #resultUpdateTime == 0
+		//checking if Death Strike can be leveled
+		getColor #color1 114 682
+		if #color1 == #colorWhite or #color1 == #colorSkillAlmostDone and #dsLvl >= #dsLoop
+			#safeToLevelds = 1
+		endif
+		
+		//checking if Hand of midas can be leveled
+		getColor #color1 195 682
+		if #color1 == #colorWhite or #color1 == #colorSkillAlmostDone and #homLvl >= #homLoop
+			#safeToLevelhom = 1
+		endif
+		
+		//checking if Fire Sword can be leveled
+		getColor #color1 274 682
+		if #color1 == #colorWhite or #color1 == #colorSkillAlmostDone and #fsLvl >= #fsLoop
+			#safeToLevelfs = 1
+		endif
+		
+		//checking if War Cry can be leveled
+		getColor #color1 354 682
+		if #color1 == #colorWhite or #color1 == #colorSkillAlmostDone and #wcLvl >= #wcLoop
+			#safeToLevelwc = 1
+		endif
+		
+		//checking if Shadow Clone can be leveled
+		getColor #color1 434 682
+		if #color1 == #colorWhite or #color1 == #colorSkillAlmostDone and #scLvl >= #scLoop
+			#safeToLevelsc = 1
 		endif
 	endif
 
@@ -377,7 +419,12 @@ goto :init
 	#lastPressHeroes = 0
 	#timeLastActionRun = 0
 	#timeLastMainHero = 0
-
+	#levelSkillsUpLastPress = 0
+	#safeToLevelds = 1
+	#safeToLevelfs = 1
+	#safeToLevelhom = 1
+	#safeToLevelsc = 1
+	#safeToLevelwc = 1
 	touchDown 0 #menuCloseX #menuCloseY
 	sleep #btnDelay
 	#time = #time + #btnDelay
@@ -411,33 +458,32 @@ goto :init
 	touchUp 0
 	sleep #menuSlideDelay
 	#time = #time + 200
-
 	#timeDiff = #secondsTotal - #lastPressShadowClone
-	if #timeDiff >= #intervalShadowClone and #intervalShadowClone > 0 and #startUsingSCAfter >= #minutes
+	if #timeDiff >= #intervalShadowClone and #intervalShadowClone > 0 and #minutes >= #startUsingSCAfter
 		#lastPressShadowClone = #secondsTotal
 		touchPress 0 430 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressCrit
-	if #timeDiff >= #intervalCrit and #intervalCrit > 0 and #startUsingDSAfter >= #minutes
+	if #timeDiff >= #intervalCrit and #intervalCrit > 0 and #minutes >= #startUsingDSAfter
 		#lastPressCrit = #secondsTotal
 		touchPress 0 120 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressFireBlade
-	if #timeDiff >= #intervalFireBlade and #intervalFireBlade > 0 and #startUsingFSAfter >= #minutes
+	if #timeDiff >= #intervalFireBlade and #intervalFireBlade > 0 and #minutes >= #startUsingFSAfter
 		#lastPressFireBlade = #secondsTotal
 		touchPress 0 280 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressMidas
-	if #timeDiff >= #intervalMidas and #intervalMidas > 0 and #startUsingHOMAfter >= #minutes
+	if #timeDiff >= #intervalMidas and #intervalMidas > 0 and #minutes >= #startUsingHOMAfter
 		#lastPressMidas = #secondsTotal
 		touchPress 0 200 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressHeroes
-	if #timeDiff >= #intervalHeroes and #intervalHeroes > 0 and #startUsingWCAfter >= #minutes
+	if #timeDiff >= #intervalHeroes and #intervalHeroes > 0 and #minutes >= #startUsingWCAfter
 		#lastPressHeroes = #secondsTotal
 		touchPress 0 360 710
 		#time = #time + 200
@@ -691,6 +737,7 @@ goto :clanQuestClose
 // ----------- lvl hs
 :lvlHSToCheck
 		sleep 500
+		#time = #time + 500
 		getRGB #colorRed #colorGreen #colorBlue 466 650
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHS
@@ -703,6 +750,7 @@ goto :clanQuestClose
 :lvlUpHS
 			if #hsLvl >= #hsLoop
 				sleep 200
+				#time = #time + 200
 				// first skill
 				sleep #btnDelay
 				#time = #time + #btnDelay
@@ -712,6 +760,7 @@ goto :clanQuestClose
 				touchUp 0
 				#hsLoop = #hsLoop + 1
 				sleep 500
+				#time = #time + 500
 				goto :lvlHSToCheck
 			else
 				#hsMaxOutSkill = 1
@@ -723,10 +772,15 @@ goto :clanQuestClose
 // ----------- lvl DS
 :lvlDSToCheck
 		sleep 500
-		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+		#time = #time + 500
+		getRGB #colorRed #colorGreen #colorBlue 450 
+		if #safeToLevelds == 0
+			toast Death Strike is currently being used
+			goto :checkSkillsSlideDown
+		elseif #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpDS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			#safeToLevelds = 0
 			toast Not enought gold to buy Death strike
 			goto :checkSkillsSlideDown
 		endif
@@ -742,8 +796,10 @@ goto :clanQuestClose
 				touchUp 0
 				#dsLoop = #dsLoop + 1
 				sleep 200
+				#time = #time + 200
 				goto :lvlDSToCheck
 			else
+				#safeToLevelds = 0
 				#dsMaxOutSkill = 1
 				toast Death strike is at desired lvl
 				goto :checkSkillsSlideDown
@@ -753,10 +809,15 @@ goto :clanQuestClose
 // ----------- lvl HOM
 :lvlHOMToCheck
 		sleep 500
+		#time = #time + 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+		if #safeToLevelhom == 0
+			toast hom is currently being used
+			goto :checkSkillsSlideDown
+		elseif #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHOM
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			#safeToLevelhom = 0
 			toast Not enought gold to buy HOM
 			goto :checkSkillsSlideDown
 		endif
@@ -772,8 +833,10 @@ goto :clanQuestClose
 				touchUp 0
 				#homLoop = #homLoop + 1
 				sleep 200
+				#time = #time + 200
 				goto :lvlHOMToCheck
 			else
+				#safeToLevelhom = 0
 				#homMaxOutSkill = 1
 				toast Hand of midas is at desired lvl
 				goto :checkSkillsSlideDown
@@ -783,10 +846,15 @@ goto :clanQuestClose
 // ----------- lvl FS
 :lvlFSToCheck
 		sleep 500
+		#time = #time + 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+		if #safeToLevelfs == 0
+			toast FS is currently being used
+			goto :checkSkillsSlideDown
+		elseif #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpFS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			#safeToLevelfs = 0
 			toast Not enought gold to buy Fire sword
 			goto :checkSkillsSlideDown
 		endif
@@ -802,8 +870,10 @@ goto :clanQuestClose
 				touchUp 0
 				#fsLoop = #fsLoop + 1
 				sleep 200
+				#time = #time + 200
 				goto :lvlFSToCheck
 			else
+				#safeToLevelfs = 0
 				#fsMaxOutSkill = 1
 				toast Fire sword is at desired lvl
 				goto :checkSkillsSlideDown
@@ -813,10 +883,15 @@ goto :clanQuestClose
 // ----------- lvl WC
 :lvlWCToCheck
 		sleep 500
+		#time = #time + 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+		if #safeToLevelwc == 0
+			toast WC is currently being used
+			goto :checkSkillsSlideDown
+		elseif #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpWC
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			#safeToLevelwc = 0
 			toast Not enought gold to buy War cry
 			goto :checkSkillsSlideDown
 		endif
@@ -832,8 +907,10 @@ goto :clanQuestClose
 				touchUp 0
 				#wcLoop = #wcLoop + 1
 				sleep 200
+				#time = #time + 200
 				goto :lvlWCToCheck
 			else
+				#safeToLevelwc = 0
 				#wcMaxOutSkill = 1
 				toast War cry is at desired lvl
 				goto :checkSkillsSlideDown
@@ -843,10 +920,15 @@ goto :clanQuestClose
 // ----------- lvl SC
 :lvlSCToCheck
 		sleep 500
+		#time = #time + 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
+		if #safeToLevelsc == 0
+			toast SC is currently being used
+			goto :checkSkillsSlideDown
+		elseif #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpSC
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
+			#safeToLevelsc = 0
 			toast Not enought gold to buy Shadow Clone
 			goto :checkSkillsSlideDown
 		endif
@@ -862,8 +944,10 @@ goto :clanQuestClose
 				touchUp 0
 				#scLoop = #scLoop + 1
 				sleep 200
+				#time = #time + 200
 				goto :lvlSCToCheck
 			else
+				#safeToLevelsc = 0
 				#scMaxOutSkill = 1
 				toast Shadow clone is at desired lvl
 				goto :checkSkillsSlideDown
@@ -872,6 +956,8 @@ goto :clanQuestClose
 
 
 :checkSkills
+	#levelSkillsUpLastPress = #minutes
+	
 
 	if #prestige == 0 and #startSkillCheckNow == 0
 		goto :checkSkillsFinish

@@ -1,5 +1,6 @@
-// -  Tap Titans 2 AdvancedClickBot by Tune389 [ v1.2 ]
-// -  Changes by Mikuchck v0.7
+// -  Tap Titans 2 AdvancedClickBot by Tune389
+// -  Improved by Mikuchck
+// -  Changes by Mikuchck v1.1
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -34,7 +35,7 @@ var #runActionsOnStart 1
 //; 1 = (default) run actions on script start
 //; 0 = run actions after given run time above
 
-var #percentManaToUseSkill 20
+var #percentManaToUseSkill 50
 // Script is clicking a bit faster so set it like 2% higher but dont set it above 100%
 var #fullManaSkill 7
 //; if mana above set percentage press skill
@@ -79,25 +80,25 @@ var #stopMasterAfterSkillsUnlocked 1
 
 var #hsLvl 16
 var #dsLvl 1
-var #homLvl 2
+var #homLvl 1
 var #fsLvl 1
-var #wcLvl 2
-var #scLvl 1
+var #wcLvl 1
+var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
 var #startUsingDSAfter 20
 var #startUsingHOMAfter 20
-var #startUsingFSAfter 0
-var #startUsingWCAfter 15
+var #startUsingFSAfter 20
+var #startUsingWCAfter 20
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
 var #intervalCrit 20
-var #intervalFireBlade 0
+var #intervalFireBlade 20
 var #intervalMidas 20
 var #intervalHeroes 20
-var #intervalShadowClone 0
+var #intervalShadowClone 20
 
 //just level each skill once
 var #justUnlockSkills 1
@@ -411,33 +412,32 @@ goto :init
 	touchUp 0
 	sleep #menuSlideDelay
 	#time = #time + 200
-
 	#timeDiff = #secondsTotal - #lastPressShadowClone
-	if #timeDiff >= #intervalShadowClone and #intervalShadowClone > 0 and #startUsingSCAfter >= #minutes
+	if #timeDiff >= #intervalShadowClone and #intervalShadowClone > 0 and #minutes >= #startUsingSCAfter
 		#lastPressShadowClone = #secondsTotal
 		touchPress 0 430 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressCrit
-	if #timeDiff >= #intervalCrit and #intervalCrit > 0 and #startUsingDSAfter >= #minutes
+	if #timeDiff >= #intervalCrit and #intervalCrit > 0 and #minutes >= #startUsingDSAfter
 		#lastPressCrit = #secondsTotal
 		touchPress 0 120 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressFireBlade
-	if #timeDiff >= #intervalFireBlade and #intervalFireBlade > 0 and #startUsingFSAfter >= #minutes
+	if #timeDiff >= #intervalFireBlade and #intervalFireBlade > 0 and #minutes >= #startUsingFSAfter
 		#lastPressFireBlade = #secondsTotal
 		touchPress 0 280 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressMidas
-	if #timeDiff >= #intervalMidas and #intervalMidas > 0 and #startUsingHOMAfter >= #minutes
+	if #timeDiff >= #intervalMidas and #intervalMidas > 0 and #minutes >= #startUsingHOMAfter
 		#lastPressMidas = #secondsTotal
 		touchPress 0 200 710
 		#time = #time + 200
 	endif
 	#timeDiff = #secondsTotal - #lastPressHeroes
-	if #timeDiff >= #intervalHeroes and #intervalHeroes > 0 and #startUsingWCAfter >= #minutes
+	if #timeDiff >= #intervalHeroes and #intervalHeroes > 0 and #minutes >= #startUsingWCAfter
 		#lastPressHeroes = #secondsTotal
 		touchPress 0 360 710
 		#time = #time + 200
