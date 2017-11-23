@@ -5,7 +5,7 @@
 SCREEN_SIZE: 480x800
 
 // ----------- Settings
-var #enableClanShip 1
+var #enableClanShip 0
 var #enableFairies 1
 
 //; 1 = (default) collect all fairies
@@ -29,6 +29,7 @@ var #runActionsEveryXMinutes 5
 var #levelMainHero 1
 //; 5 = (default)
 //; 1-99 = in Minutes
+
 // skill update interval must be lover then runActionsEveryXMinutes
 var #levelSkillsUpEveryXMinute 2
 
@@ -36,8 +37,9 @@ var #runActionsOnStart 1
 //; 1 = (default) run actions on script start
 //; 0 = run actions after given run time above
 
-var #percentManaToUseSkill 90
+var #percentManaToUseSkill 75
 // Script is clicking a bit faster so set it like 2% higher but dont set it above 100%
+
 var #fullManaSkill 7
 //; if mana above set percentage press skill
 //; 2 = critical strike
@@ -79,20 +81,20 @@ var #enableSkills 1
 //prevent sword master leveling after all skills are unlocked ( > lvl 600)
 var #stopMasterAfterSkillsUnlocked 1
 
-var #hsLvl 20
+var #hsLvl 19
 var #dsLvl 1
-var #homLvl 8
+var #homLvl 1
 var #fsLvl 1
-var #wcLvl 8
-var #scLvl 1
+var #wcLvl 1
+var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 500
-var #startUsingHOMAfter 20
-var #startUsingFSAfter 500
-var #startUsingWCAfter 20
-var #startUsingSCAfter 500
+var #startUsingDSAfter 25
+var #startUsingHOMAfter 25
+var #startUsingFSAfter 25
+var #startUsingWCAfter 25
+var #startUsingSCAfter 0
 
 //press given skills every X seconds
 var #intervalCrit 20
