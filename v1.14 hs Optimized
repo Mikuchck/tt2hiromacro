@@ -1,5 +1,5 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389
-// -  Improved by Mck v1.13
+// -  Improved by Mck v1.14
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -941,8 +941,31 @@ goto :clanQuestClose
 		goto :checkSkillsFinish
 	endif
 
-
-	if #skillCheckStepper == 1
+	if #skillCheckStepper == 0
+		//slide back
+		touchDown 1 280 650
+		sleep 200
+		touchMove 1 280 600
+		sleep 50
+		touchMove 1 280 700
+		sleep 50
+		touchMove 1 280 750
+		sleep 50
+		touchMove 1 280 780
+		touchUp 1
+		#time = #time + 2350
+		touchDown 1 280 650
+		sleep 200
+		touchMove 1 280 600
+		sleep 50
+		touchMove 1 280 700
+		sleep 50
+		touchMove 1 280 750
+		sleep 50
+		touchMove 1 280 780
+		touchUp 1
+		#time = #time + 700
+	elseif #skillCheckStepper == 1
 		goto :lvlHSToCheck
 	elseif #skillCheckStepper == 2
 		goto :lvlDSToCheck
