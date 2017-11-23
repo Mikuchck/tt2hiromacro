@@ -1,11 +1,12 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389
-// -  Improved by Mck v1.14
+// -  Improved by Mikuchck
+// -  Changes by Mikuchck v1.1
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
 
 // ----------- Settings
-var #enableClanShip 0
+var #enableClanShip 1
 var #enableFairies 1
 
 //; 1 = (default) collect all fairies
@@ -30,16 +31,12 @@ var #levelMainHero 1
 //; 5 = (default)
 //; 1-99 = in Minutes
 
-// skill update interval must be lover then runActionsEveryXMinutes
-var #levelSkillsUpEveryXMinute 2
-
 var #runActionsOnStart 1
 //; 1 = (default) run actions on script start
 //; 0 = run actions after given run time above
 
-var #percentManaToUseSkill 75
+var #percentManaToUseSkill 50
 // Script is clicking a bit faster so set it like 2% higher but dont set it above 100%
-
 var #fullManaSkill 7
 //; if mana above set percentage press skill
 //; 2 = critical strike
@@ -81,7 +78,7 @@ var #enableSkills 1
 //prevent sword master leveling after all skills are unlocked ( > lvl 600)
 var #stopMasterAfterSkillsUnlocked 1
 
-var #hsLvl 19
+var #hsLvl 18
 var #dsLvl 1
 var #homLvl 1
 var #fsLvl 1
@@ -90,10 +87,10 @@ var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 25
-var #startUsingHOMAfter 25
-var #startUsingFSAfter 25
-var #startUsingWCAfter 25
+var #startUsingDSAfter 20
+var #startUsingHOMAfter 20
+var #startUsingFSAfter 20
+var #startUsingWCAfter 20
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
@@ -133,8 +130,8 @@ var #startBossSecondarySkill 0
 
 // ----------- Actions ----------- [ Prestige ]
 var #enableAutoprestige 1
-var #lowerPrestigeTime  400
-var #higherPrestigeTime 450
+var #lowerPrestigeTime  470
+var #higherPrestigeTime 520
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
@@ -188,9 +185,6 @@ var #homMaxOutSkill 0
 var #fsMaxOutSkill 0
 var #wcMaxOutSkill 0
 var #scMaxOutSkill 0
-var #levelSkillsUpLastPress 0
-var #levelSkillsUpLastDiff 0
-
 	#hsLvl = #hsLvl - 1
 	#dsLvl = #dsLvl - 1
 	#homLvl = #homLvl - 1
@@ -224,8 +218,6 @@ var #colorGray 2695200
 var #colorMana -69345
 var #colorMana2 -69602
 var #colorMana3 -67149
-var #colorSkillCancel -7970303
-var #colorSkillScroll 7961216
 
 //var #colorItemBossActive 2432264 127 70
 var #colorFairyWatch -3103447
@@ -269,7 +261,6 @@ var #resultClanQuest 0
 
 	#timeDiff = #minutes - #timeLastActionRun
 	#timeDiffHero = #minutes - #timeLastMainHero
-	#levelSkillsUpLastDiff = #minutes - #levelSkillsUpLastPress
 	
 	//add general execution delays
 	#time = #time + #timeScaleAddition
@@ -306,19 +297,14 @@ var #resultClanQuest 0
 		#checkManaXCoord = 2 * #percentManaToUseSkill
 		getColor #color1 #checkManaXCoord 638
 		if #color1 == #colorWhite or #color1 == #colorMana or #color1 == #colorMana2 or #color1 == #colorMana3
-			toast Mana full starting something and dont waste regen time
+			toast0”2 Mana full starting something and dont waste regen time
 			goto :startSkill
 		endif
 	endif
 
-	if #levelSkillsUpLastDiff >= #levelSkillsUpEveryXMinute and #resultUpdateTime == 0
-		goto :checkSkills
-	endif
-	
 	if #resultUpdateTime == 0 and #timeDiff < #runActionsEveryXMinutes
 		goto :pressSkills
 	endif
-	
 
 		
 	if #loopCount == 1 and #enableClanQuest == 1
@@ -392,7 +378,6 @@ goto :init
 	#lastPressHeroes = 0
 	#timeLastActionRun = 0
 	#timeLastMainHero = 0
-	#levelSkillsUpLastPress = 0
 
 	touchDown 0 #menuCloseX #menuCloseY
 	sleep #btnDelay
@@ -598,7 +583,7 @@ goto :start
 	endif
 
 goto :start
-	
+
 :checkClanQuestReady
 
 	//open menu
@@ -706,14 +691,8 @@ goto :clanQuestClose
 
 // ----------- lvl hs
 :lvlHSToCheck
-		sleep #btnDelay
-		#time = #time + #btnDelay
+		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 466 650
-		if #colorBlue == -121 and #hsMaxOutSkill == 0
-			touchDown 0 466 650
-			sleep #btnDelay
-			#time = #time + #btnDelay
-		endif
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHS
 		elseif #colorBlue == -114 or #colorBlue == -115 or #colorBlue == -116 or #colorBlue == -117 or #colorBlue == -118 or #colorBlue == -119
@@ -724,8 +703,7 @@ goto :clanQuestClose
 	
 :lvlUpHS
 			if #hsLvl >= #hsLoop
-				sleep #btnDelay
-				#time = #time + #btnDelay
+				sleep 200
 				// first skill
 				sleep #btnDelay
 				#time = #time + #btnDelay
@@ -734,8 +712,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#hsLoop = #hsLoop + 1
-				sleep #btnDelay
-				#time = #time + #btnDelay
+				sleep 500
 				goto :lvlHSToCheck
 			else
 				#hsMaxOutSkill = 1
@@ -746,14 +723,8 @@ goto :clanQuestClose
 	
 // ----------- lvl DS
 :lvlDSToCheck
-		sleep #btnDelay
-		#time = #time + #btnDelay
+		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == -121 and #dsMaxOutSkill == 0
-			touchDown 466 710
-			sleep #btnDelay
-			#time = #time + #btnDelay
-		endif
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpDS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
@@ -771,8 +742,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#dsLoop = #dsLoop + 1
-				sleep #btnDelay
-				#time = #time + #btnDelay
+				sleep 200
 				goto :lvlDSToCheck
 			else
 				#dsMaxOutSkill = 1
@@ -783,14 +753,8 @@ goto :clanQuestClose
 	
 // ----------- lvl HOM
 :lvlHOMToCheck
-		sleep #btnDelay
-		#time = #time + #btnDelay
+		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == -121 and #homMaxOutSkill == 0
-			touchDown 466 710
-			sleep #btnDelay
-			#time = #time + #btnDelay
-		endif
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHOM
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
@@ -808,8 +772,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#homLoop = #homLoop + 1
-				sleep #btnDelay
-				#time = #time + #btnDelay
+				sleep 200
 				goto :lvlHOMToCheck
 			else
 				#homMaxOutSkill = 1
@@ -822,11 +785,6 @@ goto :clanQuestClose
 :lvlFSToCheck
 		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == -121 and #fsMaxOutSkill == 0
-			touchDown 466 710
-			sleep #btnDelay
-			#time = #time + #btnDelay
-		endif
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpFS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
@@ -844,8 +802,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#fsLoop = #fsLoop + 1
-				sleep #btnDelay
-				#time = #time + #btnDelay
+				sleep 200
 				goto :lvlFSToCheck
 			else
 				#fsMaxOutSkill = 1
@@ -856,14 +813,8 @@ goto :clanQuestClose
 
 // ----------- lvl WC
 :lvlWCToCheck
-		sleep #btnDelay
-		#time = #time + #btnDelay
+		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == -121 and #wcMaxOutSkill == 0
-			touchDown 466 710
-			sleep #btnDelay
-			#time = #time + #btnDelay
-		endif
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpWC
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
@@ -881,8 +832,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#wcLoop = #wcLoop + 1
-				sleep #btnDelay
-				#time = #time + #btnDelay
+				sleep 200
 				goto :lvlWCToCheck
 			else
 				#wcMaxOutSkill = 1
@@ -893,14 +843,8 @@ goto :clanQuestClose
 
 // ----------- lvl SC
 :lvlSCToCheck
-		sleep #btnDelay
-		#time = #time + #btnDelay
+		sleep 500
 		getRGB #colorRed #colorGreen #colorBlue 450 710
-		if #colorBlue == -121 and #scMaxOutSkill == 0
-			touchDown 466 710
-			sleep #btnDelay
-			#time = #time + #btnDelay
-		endif
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpSC
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
@@ -918,8 +862,7 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#scLoop = #scLoop + 1
-				sleep #btnDelay
-				#time = #time + #btnDelay
+				sleep 200
 				goto :lvlSCToCheck
 			else
 				#scMaxOutSkill = 1
@@ -930,7 +873,6 @@ goto :clanQuestClose
 
 
 :checkSkills
-	#levelSkillsUpLastPress = #minutes
 
 	if #prestige == 0 and #startSkillCheckNow == 0
 		goto :checkSkillsFinish
@@ -941,31 +883,9 @@ goto :clanQuestClose
 		goto :checkSkillsFinish
 	endif
 
-	if #skillCheckStepper == 0
-		//slide back
-		touchDown 1 280 650
-		sleep 200
-		touchMove 1 280 600
-		sleep 50
-		touchMove 1 280 700
-		sleep 50
-		touchMove 1 280 750
-		sleep 50
-		touchMove 1 280 780
-		touchUp 1
-		#time = #time + 2350
-		touchDown 1 280 650
-		sleep 200
-		touchMove 1 280 600
-		sleep 50
-		touchMove 1 280 700
-		sleep 50
-		touchMove 1 280 750
-		sleep 50
-		touchMove 1 280 780
-		touchUp 1
-		#time = #time + 700
-	elseif #skillCheckStepper == 1
+	#skillCheckStepper = #skillCheckStepper + 1
+
+	if #skillCheckStepper == 1
 		goto :lvlHSToCheck
 	elseif #skillCheckStepper == 2
 		goto :lvlDSToCheck
@@ -980,7 +900,6 @@ goto :clanQuestClose
 	elseif #skillCheckStepper <= 6
 		goto :checkSkillsUnlock
 	endif
-	#skillCheckStepper = #skillCheckStepper + 1
 
 	//slide back
 	touchDown 1 280 650
@@ -994,6 +913,7 @@ goto :clanQuestClose
 	touchMove 1 280 780
 	touchUp 1
 	#time = #time + 2350
+	sleep 2000
 	touchDown 1 280 650
 	sleep 200
 	touchMove 1 280 600
@@ -1004,7 +924,7 @@ goto :clanQuestClose
 	sleep 50
 	touchMove 1 280 780
 	touchUp 1
-	#time = #time + 700
+	#time = #time + 350
 goto :checkSkillsFinish
 
 :checkSkillsUnlock
@@ -1051,29 +971,19 @@ goto :closeMenu
 
 	
 :checkSkillsSlideDown
-	getColor #color1 177 693
-	if #color1 == #colorSkillScroll
-		//slide
-		touchDown 1 280 750
-		sleep 200
-		touchMove 1 280 725
-		sleep 50
-		touchMove 1 280 660
-		sleep 50
-		touchMove 1 280 655
-		sleep 50
-		touchMove 1 280 649
-		sleep 200
-		touchUp 1
-		sleep 1000
-		#time = #time + 1550
-	else 
-	
-		toast color is #color1 --- scrolling bugged out restarting
-		#skillCheckStepper = 0
-		goto :checkSkills
-	endif
-
+	//slide
+	touchDown 1 280 750
+	sleep 200
+	touchMove 1 280 725
+	sleep 50
+	touchMove 1 280 660
+	sleep 50
+	touchMove 1 280 655
+	sleep 50
+	touchMove 1 280 649
+	sleep 200
+	touchUp 1
+	#time = #time + 550
 goto :checkSkills
 
 :closeMenu
