@@ -135,8 +135,7 @@ var #higherPrestigeTime 520
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
-var #prestigeAfterXMinutes 0
-rand #prestigeAfterXMinutes #lowerPrestigeTime #higherPrestigeTime
+
 
 //show current script time
 var #showCurrentTime 1
@@ -185,6 +184,9 @@ var #homMaxOutSkill 0
 var #fsMaxOutSkill 0
 var #wcMaxOutSkill 0
 var #scMaxOutSkill 0
+var #prestigeAfterXMinutes 0
+rand #prestigeAfterXMinutes #lowerPrestigeTime #higherPrestigeTime
+
 	#hsLvl = #hsLvl - 1
 	#dsLvl = #dsLvl - 1
 	#homLvl = #homLvl - 1
@@ -691,7 +693,8 @@ goto :clanQuestClose
 
 // ----------- lvl hs
 :lvlHSToCheck
-		sleep 500
+		sleep #btnDelay
+		#time = #time + #btnDelay
 		getRGB #colorRed #colorGreen #colorBlue 466 650
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHS
@@ -703,7 +706,8 @@ goto :clanQuestClose
 	
 :lvlUpHS
 			if #hsLvl >= #hsLoop
-				sleep 200
+				sleep #btnDelay
+				#time = #time + #btnDelay
 				// first skill
 				sleep #btnDelay
 				#time = #time + #btnDelay
@@ -712,7 +716,8 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#hsLoop = #hsLoop + 1
-				sleep 500
+				sleep #btnDelay
+				#time = #time + #btnDelay
 				goto :lvlHSToCheck
 			else
 				#hsMaxOutSkill = 1
@@ -723,7 +728,8 @@ goto :clanQuestClose
 	
 // ----------- lvl DS
 :lvlDSToCheck
-		sleep 500
+		sleep #btnDelay
+		#time = #time + #btnDelay
 		getRGB #colorRed #colorGreen #colorBlue 450 710
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpDS
@@ -742,7 +748,8 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#dsLoop = #dsLoop + 1
-				sleep 200
+				sleep #btnDelay
+				#time = #time + #btnDelay
 				goto :lvlDSToCheck
 			else
 				#dsMaxOutSkill = 1
@@ -753,7 +760,8 @@ goto :clanQuestClose
 	
 // ----------- lvl HOM
 :lvlHOMToCheck
-		sleep 500
+		sleep #btnDelay
+		#time = #time + #btnDelay
 		getRGB #colorRed #colorGreen #colorBlue 450 710
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHOM
@@ -772,7 +780,8 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#homLoop = #homLoop + 1
-				sleep 200
+				sleep #btnDelay
+				#time = #time + #btnDelay
 				goto :lvlHOMToCheck
 			else
 				#homMaxOutSkill = 1
@@ -783,7 +792,8 @@ goto :clanQuestClose
 
 // ----------- lvl FS
 :lvlFSToCheck
-		sleep 500
+		sleep #btnDelay
+		#time = #time + #btnDelay
 		getRGB #colorRed #colorGreen #colorBlue 450 710
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpFS
@@ -802,7 +812,8 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#fsLoop = #fsLoop + 1
-				sleep 200
+				sleep #btnDelay
+				#time = #time + #btnDelay
 				goto :lvlFSToCheck
 			else
 				#fsMaxOutSkill = 1
@@ -813,7 +824,8 @@ goto :clanQuestClose
 
 // ----------- lvl WC
 :lvlWCToCheck
-		sleep 500
+		sleep #btnDelay
+		#time = #time + #btnDelay
 		getRGB #colorRed #colorGreen #colorBlue 450 710
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpWC
@@ -832,7 +844,8 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#wcLoop = #wcLoop + 1
-				sleep 200
+				sleep #btnDelay
+				#time = #time + #btnDelay
 				goto :lvlWCToCheck
 			else
 				#wcMaxOutSkill = 1
@@ -843,7 +856,8 @@ goto :clanQuestClose
 
 // ----------- lvl SC
 :lvlSCToCheck
-		sleep 500
+		sleep #btnDelay
+		#time = #time + #btnDelay
 		getRGB #colorRed #colorGreen #colorBlue 450 710
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpSC
@@ -862,7 +876,8 @@ goto :clanQuestClose
 				#time = #time + #btnDelay
 				touchUp 0
 				#scLoop = #scLoop + 1
-				sleep 200
+				sleep #btnDelay
+				#time = #time + #btnDelay
 				goto :lvlSCToCheck
 			else
 				#scMaxOutSkill = 1
