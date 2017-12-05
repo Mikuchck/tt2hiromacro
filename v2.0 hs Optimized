@@ -67,7 +67,7 @@ var #skillIntensity 2
 //; 1 = (default)
 //; 2-99 = Multiple level ups
 
-var #maxOutHero 3
+var #maxOutHero 2
 //; 3 = Damon (Mage)
 //; 2 = Nohni (Meel)
 //; 1 = Finn (Ranged)
@@ -87,10 +87,10 @@ var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 25
-var #startUsingHOMAfter 25
-var #startUsingFSAfter 25
-var #startUsingWCAfter 25
+var #startUsingDSAfter 30
+var #startUsingHOMAfter 30
+var #startUsingFSAfter 30
+var #startUsingWCAfter 30
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
@@ -1049,6 +1049,7 @@ goto :start
 // ----------- LEVEL HEROES
 :levelHeroes
 //check fairy window
+
 getColor #colorFairy1 300 635
 getColor #colorFairy2 275 635
 	if #colorFairy1 == #colorWhite and #colorFairy2 == #colorFairyWatch and #enablePremiumCollect == 1
@@ -1083,24 +1084,24 @@ getColor #colorFairy2 275 635
 	
 		#loopDetectionCount = 0
 		#time = #time + 2000
-		
+		500 
 		//force 1 down scroll
-		touchDown 1 280 750
-		touchMove 1 280 745
+		touchDown 1 280 500
+		touchMove 1 280 520
 		sleep 100
-		touchMove 1 280 740
-		touchMove 1 280 735
+		touchMove 1 280 540
+		touchMove 1 280 560
 		sleep 50
-		touchMove 1 280 700
-		touchMove 1 280 690
+		touchMove 1 280 620
+		touchMove 1 280 640
 		sleep 50
-		touchMove 1 280 500
-		touchMove 1 280 450
+		touchMove 1 280 660
+		touchMove 1 280 680
 		sleep 20
-		touchMove 1 280 420
-		touchMove 1 280 410
+		touchMove 1 280 700
+		touchMove 1 280 720
 		sleep 50
-		touchMove 1 280 400
+		touchMove 1 280 745
 		touchUp 1
 		sleep 200
 		
@@ -1120,7 +1121,7 @@ goto :levelHeroes
 		goto :loopDetected
 	endif
 
-	getColor #color1 440 760
+	getColor #color1 475 510
 	if #color1 == #colorGray
 		#loopDetectionCount = 0
 		goto :levelHeroesMaxOutMain
@@ -1137,24 +1138,24 @@ getColor #colorFairy2 275 635
 	endif
 
 	sleep 200
-	touchDown 1 280 750
+	touchDown 1 280 500
 	sleep 50
-	touchMove 1 280 400
+	touchMove 1 280 520
 	sleep 50
-	touchMove 1 280 400
+	touchMove 1 280 540
 	sleep 20
-	touchMove 1 280 420
-	touchMove 1 280 410
+	touchMove 1 280 560
+	touchMove 1 280 620
 	sleep 50
-	touchMove 1 280 500
-	touchMove 1 280 450
+	touchMove 1 280 640
+	touchMove 1 280 660
 	sleep 50
+	touchMove 1 280 680
 	touchMove 1 280 700
-	touchMove 1 280 690
 	sleep 100
+	touchMove 1 280 720
+	touchMove 1 280 730
 	touchMove 1 280 740
-	touchMove 1 280 735
-	touchMove 1 280 745
 	sleep 200
 	touchUp 1
 	
@@ -1211,34 +1212,34 @@ getColor #colorFairy2 275 635
 		goto :loopDetected
 	endif
 
-	getColor #color1 475 510
+	getColor #color1 440 760
 	if #color1 == #colorGray
 		goto :closeMenu
 	endif
 
-	touchDown 1 280 510
-	sleep 20
-	touchMove 1 280 512
-	touchMove 1 280 514
-	touchMove 1 280 516
-	sleep 20
-	touchMove 1 280 520
-	touchMove 1 280 540
-	sleep 20
-	touchMove 1 280 580
-	touchMove 1 280 600
-	sleep 20
-	touchMove 1 280 630
-	touchMove 1 280 670
-	sleep 20
-	touchMove 1 280 690
-	touchMove 1 280 700
-	sleep 20
-	touchMove 1 280 736
-	touchMove 1 280 738
+	touchDown 1 280 742
 	sleep 20
 	touchMove 1 280 740
-	touchMove 1 280 742
+	touchMove 1 280 738
+	sleep 20
+	touchMove 1 280 736
+	touchMove 1 280 700
+	sleep 20
+	touchMove 1 280 690
+	touchMove 1 280 670
+	sleep 20
+	touchMove 1 280 630
+	touchMove 1 280 600
+	sleep 20
+	touchMove 1 280 580
+	touchMove 1 280 540
+	sleep 20
+	touchMove 1 280 520
+	touchMove 1 280 516
+	sleep 20
+	touchMove 1 280 514
+	touchMove 1 280 512
+	touchMove 1 280 510
 	sleep 200
 	touchUp 1
 	touchPress 1 280 750
@@ -1316,6 +1317,7 @@ goto :levelHeroesSlideUpCollection
 	touchUp 0
 	sleep 750
 	#time = #time + 1100
+
 	
 goto :levelUpLoop
 
