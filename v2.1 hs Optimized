@@ -130,8 +130,8 @@ var #startBossSecondarySkill 0
 
 // ----------- Actions ----------- [ Prestige ]
 var #enableAutoprestige 1
-var #lowerPrestigeTime  470
-var #higherPrestigeTime 520
+var #lowerPrestigeTime  65
+var #higherPrestigeTime 75
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
@@ -772,8 +772,6 @@ goto :clanQuestClose
 				sleep #btnDelay
 				#time = #time + #btnDelay
 				touchDown 0 466 710
-				sleep #btnDelay
-				#time = #time + #btnDelay
 				touchUp 0
 				#homLoop = #homLoop + 1
 				sleep #btnDelay
@@ -804,8 +802,6 @@ goto :clanQuestClose
 				sleep #btnDelay
 				#time = #time + #btnDelay
 				touchDown 0 466 710
-				sleep #btnDelay
-				#time = #time + #btnDelay
 				touchUp 0
 				#fsLoop = #fsLoop + 1
 				sleep #btnDelay
@@ -836,8 +832,6 @@ goto :clanQuestClose
 				sleep #btnDelay
 				#time = #time + #btnDelay
 				touchDown 0 466 710
-				sleep #btnDelay
-				#time = #time + #btnDelay
 				touchUp 0
 				#wcLoop = #wcLoop + 1
 				sleep #btnDelay
@@ -868,8 +862,6 @@ goto :clanQuestClose
 				sleep #btnDelay
 				#time = #time + #btnDelay
 				touchDown 0 466 710
-				sleep #btnDelay
-				#time = #time + #btnDelay
 				touchUp 0
 				#scLoop = #scLoop + 1
 				sleep #btnDelay
