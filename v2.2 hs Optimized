@@ -701,6 +701,12 @@ goto :clanQuestClose
 		elseif #colorBlue == -114 or #colorBlue == -115 or #colorBlue == -116 or #colorBlue == -117 or #colorBlue == -118 or #colorBlue == -119
 			toast Not enought gold to buy Heavenly strike
 			goto :checkSkills
+		elseif #colorBlue == -121
+			touchDown 0 466 650
+			touchUp 0
+			sleep #btnDelay
+			#time = #time + #btnDelay
+			goto :lvlHSToCheck
 		endif
 	goto :checkSkills
 	
@@ -734,6 +740,12 @@ goto :clanQuestClose
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Death strike
 			goto :checkSkillsSlideDown
+		elseif #colorBlue == -121
+			touchDown 0 466 710
+			touchUp 0
+			sleep #btnDelay
+			#time = #time + #btnDelay
+			goto :lvlDSToCheck
 		endif
 	goto :checkSkills
 	
@@ -764,6 +776,12 @@ goto :clanQuestClose
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy HOM
 			goto :checkSkillsSlideDown
+		elseif #colorBlue == -121
+			touchDown 0 466 710
+			touchUp 0
+			sleep #btnDelay
+			#time = #time + #btnDelay
+			goto :lvlHOMToCheck
 		endif
 	goto :checkSkillsSlideDown
 	
@@ -794,6 +812,12 @@ goto :clanQuestClose
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Fire sword
 			goto :checkSkillsSlideDown
+		elseif #colorBlue == -121
+			touchDown 0 466 710
+			touchUp 0
+			sleep #btnDelay
+			#time = #time + #btnDelay
+			goto :lvlFSToCheck
 		endif
 	goto :checkSkillsSlideDown
 	
@@ -824,6 +848,12 @@ goto :clanQuestClose
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy War cry
 			goto :checkSkillsSlideDown
+		elseif #colorBlue == -121
+			touchDown 0 466 710
+			touchUp 0
+			sleep #btnDelay
+			#time = #time + #btnDelay
+			goto :lvlWCToCheck
 		endif
 	goto :checkSkillsSlideDown
 	
@@ -854,6 +884,12 @@ goto :clanQuestClose
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Shadow Clone
 			goto :checkSkillsSlideDown
+		elseif #colorBlue == -121
+			touchDown 0 466 710
+			touchUp 0
+			sleep #btnDelay
+			#time = #time + #btnDelay
+			goto :lvlSCToCheck
 		endif
 	goto :checkSkillsSlideDown
 	
@@ -1001,19 +1037,26 @@ goto :closeMenu
 
 	
 :checkSkillsSlideDown
-	//slide
-	touchDown 1 280 750
-	sleep 200
-	touchMove 1 280 725
-	sleep 50
-	touchMove 1 280 660
-	sleep 50
-	touchMove 1 280 655
-	sleep 50
-	touchMove 1 280 649
-	sleep 200
-	touchUp 1
-	#time = #time + 550
+	getRGB #colorRed #colorGreen #colorBlue 450 710
+	if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20 or #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74 or #colorBlue == -121
+		//slide
+		touchDown 1 280 750
+		sleep 200
+		touchMove 1 280 725
+		sleep 50
+		touchMove 1 280 660
+		sleep 50
+		touchMove 1 280 655
+		sleep 50
+		touchMove 1 280 649
+		sleep 200
+		touchUp 1
+		#time = #time + 550
+	else
+	toast something went wrong reseting skills buy
+	#skillCheckStepper = 0
+	goto :checkSkills
+	endif
 goto :checkSkills
 
 :closeMenu
