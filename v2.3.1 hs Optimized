@@ -80,18 +80,18 @@ var #stopMasterAfterSkillsUnlocked 1
 var #cancelSkillsWhileUpgrading 1
 
 var #hsLvl 20
-var #dsLvl 1
-var #homLvl 1
-var #fsLvl 1
-var #wcLvl 1
+var #dsLvl 20
+var #homLvl 20
+var #fsLvl 20
+var #wcLvl 20
 var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 30
-var #startUsingHOMAfter 30
-var #startUsingFSAfter 30
-var #startUsingWCAfter 30
+var #startUsingDSAfter 45
+var #startUsingHOMAfter 45
+var #startUsingFSAfter 45
+var #startUsingWCAfter 45
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
@@ -131,8 +131,8 @@ var #startBossSecondarySkill 0
 
 // ----------- Actions ----------- [ Prestige ]
 var #enableAutoprestige 1
-var #lowerPrestigeTime  60
-var #higherPrestigeTime 70
+var #lowerPrestigeTime  80
+var #higherPrestigeTime 85
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
@@ -926,8 +926,6 @@ goto :clanQuestClose
 	#skillCheckStepper = #skillCheckStepper + 1
 	
 	if #skillCheckStepper == 1
-	toast #skillCheckStepper
-	toast test
 		touchDown 1 280 650
 		sleep 200
 		touchMove 1 280 600
@@ -1054,11 +1052,20 @@ goto :closeMenu
 		touchUp 1
 		#time = #time + 550
 	else
-	toast something went wrong reseting skills buy
-	#skillCheckStepper = 0
-	sleep 5000
-	#time = #time + 5000
-	goto :checkSkills
+		toast something went wrong reseting skills buy
+		#skillCheckStepper = 0
+		sleep 5000
+		#time = #time + 5000
+		goto :checkIfSkillsOpen
+	endif
+goto :checkSkills
+
+:checkIfSkillsOpen
+	getColor #color1 30 764
+	if #color1 == #colorWhite
+		goto :checkSkills
+	else
+		goto :start
 	endif
 goto :checkSkills
 
