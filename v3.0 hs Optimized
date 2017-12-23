@@ -1,5 +1,5 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389
-// -  Changes by Mikuchck v2.3.2
+// -  Changes by Mikuchck v3.0
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -698,14 +698,14 @@ goto :clanQuestClose
 :lvlHSToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
-		getRGB #colorRed #colorGreen #colorBlue 466 650
+		getRGB #colorRed #colorGreen #colorBlue 450 660
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
-			goto :lvlUpHS
-		elseif #colorBlue == -114 or #colorBlue == -115 or #colorBlue == -116 or #colorBlue == -117 or #colorBlue == -118 or #colorBlue == -119
+			goto :lvlUpDS
+		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Heavenly strike
 			goto :checkSkills
 		elseif #colorBlue == -121 and #hsMaxOutSkill == 0 and #cancelSkillsWhileUpgrading == 1
-			touchDown 0 466 650
+			touchDown 0 466 660
 			touchUp 0
 			sleep #btnDelay
 			#time = #time + #btnDelay
@@ -729,7 +729,7 @@ goto :clanQuestClose
 				// first skill
 				sleep #btnDelay
 				#time = #time + #btnDelay
-				touchDown 0 466 650
+				touchDown 0 466 670
 				touchUp 0
 				#hsLoop = #hsLoop + 1
 				sleep #btnDelay
@@ -746,14 +746,14 @@ goto :clanQuestClose
 :lvlDSToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
-		getRGB #colorRed #colorGreen #colorBlue 450 710
+		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpDS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Death strike
 			goto :checkSkillsSlideDown
 		elseif #colorBlue == -121 and #dsMaxOutSkill == 0 and #cancelSkillsWhileUpgrading == 1
-			touchDown 0 466 710
+			touchDown 0 466 735
 			touchUp 0
 			sleep #btnDelay
 			#time = #time + #btnDelay
@@ -774,7 +774,7 @@ goto :clanQuestClose
 			if #dsLvl >= #dsLoop
 				sleep #btnDelay
 				#time = #time + #btnDelay
-				touchDown 0 466 710
+				touchDown 0 466 735
 				touchUp 0
 				#dsLoop = #dsLoop + 1
 				sleep #btnDelay
@@ -791,14 +791,14 @@ goto :clanQuestClose
 :lvlHOMToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
-		getRGB #colorRed #colorGreen #colorBlue 450 710
+		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHOM
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy HOM
 			goto :checkSkillsSlideDown
 		elseif #colorBlue == -121 and #homMaxOutSkill == 0 and #cancelSkillsWhileUpgrading == 1
-			touchDown 0 466 710
+			touchDown 0 466 735
 			touchUp 0
 			sleep #btnDelay
 			#time = #time + #btnDelay
@@ -819,7 +819,7 @@ goto :clanQuestClose
 			if #homLvl >= #homLoop
 				sleep #btnDelay
 				#time = #time + #btnDelay
-				touchDown 0 466 710
+				touchDown 0 466 735
 				touchUp 0
 				#homLoop = #homLoop + 1
 				sleep #btnDelay
@@ -836,14 +836,14 @@ goto :clanQuestClose
 :lvlFSToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
-		getRGB #colorRed #colorGreen #colorBlue 450 710
+		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpFS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Fire sword
 			goto :checkSkillsSlideDown
 		elseif #colorBlue == -121 and #fsMaxOutSkill == 0 and #cancelSkillsWhileUpgrading == 1
-			touchDown 0 466 710
+			touchDown 0 466 735
 			touchUp 0
 			sleep #btnDelay
 			#time = #time + #btnDelay
@@ -864,7 +864,7 @@ goto :clanQuestClose
 			if #fsLvl >= #fsLoop
 				sleep #btnDelay
 				#time = #time + #btnDelay
-				touchDown 0 466 710
+				touchDown 0 466 735
 				touchUp 0
 				#fsLoop = #fsLoop + 1
 				sleep #btnDelay
@@ -881,14 +881,14 @@ goto :clanQuestClose
 :lvlWCToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
-		getRGB #colorRed #colorGreen #colorBlue 450 710
+		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpWC
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy War cry
 			goto :checkSkillsSlideDown
 		elseif #colorBlue == -121 and #wcMaxOutSkill == 0 and #cancelSkillsWhileUpgrading == 1
-			touchDown 0 466 710
+			touchDown 0 466 735
 			touchUp 0
 			sleep #btnDelay
 			#time = #time + #btnDelay
@@ -909,7 +909,7 @@ goto :clanQuestClose
 			if #wcLvl >= #wcLoop
 				sleep #btnDelay
 				#time = #time + #btnDelay
-				touchDown 0 466 710
+				touchDown 0 466 735
 				touchUp 0
 				#wcLoop = #wcLoop + 1
 				sleep #btnDelay
@@ -926,14 +926,14 @@ goto :clanQuestClose
 :lvlSCToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
-		getRGB #colorRed #colorGreen #colorBlue 450 710
+		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpSC
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Shadow Clone
 			goto :checkSkillsSlideDown
 		elseif #colorBlue == -121 and #scMaxOutSkill == 0 and #cancelSkillsWhileUpgrading == 1
-			touchDown 0 466 710
+			touchDown 0 466 735
 			touchUp 0
 			sleep #btnDelay
 			#time = #time + #btnDelay
@@ -954,7 +954,7 @@ goto :clanQuestClose
 			if #scLvl >= #scLoop
 				sleep #btnDelay
 				#time = #time + #btnDelay
-				touchDown 0 466 710
+				touchDown 0 466 735
 				touchUp 0
 				#scLoop = #scLoop + 1
 				sleep #btnDelay
@@ -1004,7 +1004,8 @@ goto :clanQuestClose
 		sleep 50
 		touchMove 1 280 780
 		touchUp 1
-		#time = #time + 1200
+		sleep 1000
+		#time = #time + 2200
 		goto :checkSkills
 	elseif #skillCheckStepper == 2
 		goto :lvlHSToCheck
@@ -1053,7 +1054,7 @@ goto :checkSkillsFinish
 	sleep 200
 	#time = #time + 250
 	
-	getRGB #colorRed #colorGreen #colorBlue 450 710
+	getRGB #colorRed #colorGreen #colorBlue 450 735
 	
 	if #colorBlue == 2 or #colorBlue == 5
 		#skillsUnlocked = #skillsUnlocked + 1
@@ -1092,7 +1093,7 @@ goto :closeMenu
 
 	
 :checkSkillsSlideDown
-	getRGB #colorRed #colorGreen #colorBlue 450 710
+	getRGB #colorRed #colorGreen #colorBlue 450 735
 	if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20 or #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74 or #colorBlue == -121
 		//slide
 		touchDown 1 280 750
