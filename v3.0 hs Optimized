@@ -700,7 +700,7 @@ goto :clanQuestClose
 		#time = #time + #btnDelay
 		getRGB #colorRed #colorGreen #colorBlue 450 660
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
-			goto :lvlUpDS
+			goto :lvlUpHS
 		elseif #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74
 			toast Not enought gold to buy Heavenly strike
 			goto :checkSkills
@@ -1008,16 +1008,28 @@ goto :clanQuestClose
 		#time = #time + 2200
 		goto :checkSkills
 	elseif #skillCheckStepper == 2
+		sleep 1000
+		#time = #time + 1000
 		goto :lvlHSToCheck
 	elseif #skillCheckStepper == 3
+		sleep 1000
+		#time = #time + 1000
 		goto :lvlDSToCheck
 	elseif #skillCheckStepper == 4
+		sleep 1000
+		#time = #time + 1000
 		goto :lvlHOMToCheck
 	elseif #skillCheckStepper == 5
+		sleep 1000
+		#time = #time + 1000
 		goto :lvlFSToCheck
 	elseif #skillCheckStepper == 6
+		sleep 1000
+		#time = #time + 1000
 		goto :lvlWCToCheck
 	elseif #skillCheckStepper == 7
+		sleep 1000
+		#time = #time + 1000
 		goto :lvlSCToCheck
 	elseif #skillCheckStepper <= 7
 		goto :checkSkillsUnlock
