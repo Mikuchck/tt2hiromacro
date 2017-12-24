@@ -1,5 +1,5 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389
-// -  Changes by Mikuchck v3.0
+// -  Changes by Mikuchck v2.5.4 rev 1
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -78,8 +78,6 @@ var #enableSkills 1
 //prevent sword master leveling after all skills are unlocked ( > lvl 600)
 var #stopMasterAfterSkillsUnlocked 1
 var #cancelSkillsWhileUpgrading 1
-//; minutes after script will stop canceling skills not finished yet
-//; var #stopCancelingAfter 50
 
 var #hsLvl 20
 var #dsLvl 20
@@ -90,8 +88,8 @@ var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 45
-var #startUsingHOMAfter 45
+var #startUsingDSAfter 90
+var #startUsingHOMAfter 70
 var #startUsingFSAfter 45
 var #startUsingWCAfter 45
 var #startUsingSCAfter 0
@@ -893,7 +891,7 @@ goto :clanQuestClose
 		#time = #time + #btnDelay
 		if #wcLvl < #wcLoop
 			#wcMaxOutSkill = 1
-			toast War cry is at desired lvl
+			toast War cry is max out
 			goto :checkSkillsSlideDown
 		endif
 		getRGB #colorRed #colorGreen #colorBlue 450 735
