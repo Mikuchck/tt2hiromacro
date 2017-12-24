@@ -133,8 +133,8 @@ var #startBossSecondarySkill 0
 
 // ----------- Actions ----------- [ Prestige ]
 var #enableAutoprestige 1
-var #lowerPrestigeTime  80
-var #higherPrestigeTime 85
+var #lowerPrestigeTime  100
+var #higherPrestigeTime 105
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
@@ -791,6 +791,11 @@ goto :clanQuestClose
 :lvlHOMToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
+		if #homLvl < #homLoop
+			#homMaxOutSkill = 1
+			toast Hand of midas is max out
+			goto :checkSkillsSlideDown
+		endif
 		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHOM
@@ -836,6 +841,11 @@ goto :clanQuestClose
 :lvlFSToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
+		if #fsLvl < #fsLoop
+			#fsMaxOutSkill = 1
+			toast Fire sword is max out
+			goto :checkSkillsSlideDown
+		endif
 		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpFS
@@ -881,6 +891,11 @@ goto :clanQuestClose
 :lvlWCToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
+		if #wcLvl < #wcLoop
+			#wcMaxOutSkill = 1
+			toast War cry is at desired lvl
+			goto :checkSkillsSlideDown
+		endif
 		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpWC
@@ -926,6 +941,11 @@ goto :clanQuestClose
 :lvlSCToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
+		if #scLvl < #scLoop
+			#scMaxOutSkill = 1
+			toast Shadow clone is max out
+			goto :checkSkillsSlideDown
+		endif
 		getRGB #colorRed #colorGreen #colorBlue 450 735
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpSC

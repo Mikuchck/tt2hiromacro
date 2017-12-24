@@ -133,8 +133,8 @@ var #startBossSecondarySkill 0
 
 // ----------- Actions ----------- [ Prestige ]
 var #enableAutoprestige 1
-var #lowerPrestigeTime  80
-var #higherPrestigeTime 85
+var #lowerPrestigeTime  130
+var #higherPrestigeTime 135
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
