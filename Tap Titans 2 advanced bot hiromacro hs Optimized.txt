@@ -1463,6 +1463,18 @@ goto :levelHeroesSlideUpCollection
 	touchUp 0
 	sleep 750
 	#time = #time + 1100
+	touchDown 0 280 650
+	sleep 200
+	touchMove 0 280 600
+	sleep 50
+	touchMove 0 280 700
+	sleep 50
+	touchMove 0 280 750
+	sleep 50
+	touchMove 0 280 780
+	touchUp 0
+	sleep 750
+	#time = #time + 1100
 	
 goto :levelUpLoop
 
