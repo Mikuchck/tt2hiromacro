@@ -1,5 +1,5 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389
-// -  Changes by Mikuchck v2.5.4 rev 1
+// -  Changes by Mikuchck v2.5.4 rev 2
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -9,7 +9,7 @@ var #enableClanShip 0
 var #enableFairies 1
 
 //; 1 = (default) collect all fairies
-//; 0 = no more ad pop ups will apear
+//; 0 = no more ad pop ups will appear
 
 var #enablePremiumCollect 1
 //; 1 = collect all premium popups
@@ -34,7 +34,7 @@ var #runActionsOnStart 1
 //; 1 = (default) run actions on script start
 //; 0 = run actions after given run time above
 
-var #percentManaToUseSkill 90
+var #percentManaToUseSkill 75
 // Script is clicking a bit faster so set it like 2% higher but dont set it above 100%
 
 var #fullManaSkill 7
@@ -77,21 +77,21 @@ var #enableSkills 1
 
 //prevent sword master leveling after all skills are unlocked ( > lvl 600)
 var #stopMasterAfterSkillsUnlocked 1
-var #cancelSkillsWhileUpgrading 1
+var #cancelSkillsWhileUpgrading 0
 
 var #hsLvl 20
-var #dsLvl 20
-var #homLvl 20
-var #fsLvl 20
-var #wcLvl 20
+var #dsLvl 7
+var #homLvl 7
+var #fsLvl 7
+var #wcLvl 7
 var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 90
-var #startUsingHOMAfter 70
-var #startUsingFSAfter 45
-var #startUsingWCAfter 45
+var #startUsingDSAfter 40
+var #startUsingHOMAfter 32
+var #startUsingFSAfter 30
+var #startUsingWCAfter 43
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
@@ -99,7 +99,7 @@ var #intervalCrit 20
 var #intervalFireBlade 20
 var #intervalMidas 20
 var #intervalHeroes 20
-var #intervalShadowClone 20
+var #intervalShadowClone 14
 
 //just level each skill once
 var #justUnlockSkills 1
@@ -131,8 +131,8 @@ var #startBossSecondarySkill 0
 
 // ----------- Actions ----------- [ Prestige ]
 var #enableAutoprestige 1
-var #lowerPrestigeTime  100
-var #higherPrestigeTime 105
+var #lowerPrestigeTime  55
+var #higherPrestigeTime 60
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
@@ -200,7 +200,7 @@ var #btnDelay 150
 var #hitDelay 40
 var #menuSlideDelay 200
 var #menuPopUpDelay 500
-var #loadingClanQuestDelay 3000
+var #loadingClanQuestDelay 10000
 
 // ----------- Menu Coords
 var #menuY 780
@@ -300,7 +300,7 @@ var #resultClanQuest 0
 		#checkManaXCoord = 2 * #percentManaToUseSkill
 		getColor #color1 #checkManaXCoord 638
 		if #color1 == #colorWhite or #color1 == #colorMana or #color1 == #colorMana2 or #color1 == #colorMana3
-			toast Mana full starting something and dont waste regen time
+			toast Mana full starting something to dont waste regen time
 			goto :startSkill
 		endif
 	endif
@@ -415,7 +415,7 @@ goto :init
 	touchUp 0
 	sleep #menuSlideDelay
 	#time = #time + 200
-	toast starting skills its #minutes min after restart
+	// toast starting skills its #minutes min after restart
 	#timeDiff = #secondsTotal - #lastPressShadowClone
 	if #timeDiff >= #intervalShadowClone and #intervalShadowClone > 0 and #minutes >= #startUsingSCAfter
 		#lastPressShadowClone = #secondsTotal
@@ -455,7 +455,7 @@ goto :start
 	#checkManaXCoord = 2 * #percentManaToUseSkill
 		getColor #color1 #checkManaXCoord 638
 	if #color1 == #colorWhite or #color1 == #colorMana
-		toast Mana full starting something and dont waste regen time
+		toast Mana full starting something to dont waste regen time
 		goto :startSkill
 	endif
 goto :start
@@ -563,7 +563,7 @@ goto :runActions
 		touchDown 0 330 535
 		sleep #btnDelay
 		touchUp 0
-		sleep 19000
+		sleep 120000
 		goto :afterPrestige
 	else
 		touchPress 470 450
@@ -696,6 +696,11 @@ goto :clanQuestClose
 :lvlHSToCheck
 		sleep #btnDelay
 		#time = #time + #btnDelay
+		if #hsLvl < #hsLoop
+			#hsMaxOutSkill = 1
+			toast Heavenly Sword is max out
+			goto :checkSkills
+		endif
 		getRGB #colorRed #colorGreen #colorBlue 450 660
 		if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20
 			goto :lvlUpHS
@@ -1123,6 +1128,8 @@ goto :closeMenu
 
 	
 :checkSkillsSlideDown
+	sleep 500
+	#time = #time + 550
 	getRGB #colorRed #colorGreen #colorBlue 450 735
 	if #colorBlue == 2 or #colorBlue == 5 or #colorBlue == 6 or #colorBlue == 7 or #colorBlue == 8 or #colorBlue == 9 or #colorBlue == 20 or #colorBlue == 72 or #colorBlue == 73 or #colorBlue == 74 or #colorBlue == -121
 		//slide
