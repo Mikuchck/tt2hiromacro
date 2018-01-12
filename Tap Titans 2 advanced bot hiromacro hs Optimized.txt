@@ -1,5 +1,5 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389
-// -  Changes by Mikuchck v2.5.4 rev 2
+// -  Changes by Mikuchck v2.5.4 rev 3
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -88,10 +88,10 @@ var #scLvl 20
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 40
-var #startUsingHOMAfter 32
-var #startUsingFSAfter 30
-var #startUsingWCAfter 43
+var #startUsingDSAfter 35
+var #startUsingHOMAfter 30
+var #startUsingFSAfter 28
+var #startUsingWCAfter 38
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
@@ -131,8 +131,8 @@ var #startBossSecondarySkill 0
 
 // ----------- Actions ----------- [ Prestige ]
 var #enableAutoprestige 1
-var #lowerPrestigeTime  55
-var #higherPrestigeTime 60
+var #lowerPrestigeTime  45
+var #higherPrestigeTime 50
 
 // ----------- Developer / Expert
 var #maxHitCount 9999999
@@ -221,6 +221,14 @@ var #colorGray 2695200
 var #colorMana -69345
 var #colorMana2 -69602
 var #colorMana3 -67149
+var #colorMana4 -67148
+var #colorMana5 -66330
+var #colorMana6 -65793
+var #colorMana7 -67148
+var #colorMana8 -65797
+var #colorMana9 -66867
+
+
 
 //var #colorItemBossActive 2432264 127 70
 var #colorFairyWatch -3103447
@@ -299,7 +307,7 @@ var #resultClanQuest 0
 	if #fullManaSkill > 0 and #resultUpdateTime == 0
 		#checkManaXCoord = 2 * #percentManaToUseSkill
 		getColor #color1 #checkManaXCoord 638
-		if #color1 == #colorWhite or #color1 == #colorMana or #color1 == #colorMana2 or #color1 == #colorMana3
+		if #color1 == #colorWhite or #color1 == #colorMana or #color1 == #colorMana2 or #color1 == #colorMana3 or #color1 == #colorMana4 or #color1 == #colorMana5 or #color1 == #colorMana6 or #color1 == #colorMana7 or #color1 == #colorMana8 or #color1 == #colorMana9
 			toast Mana full starting something to dont waste regen time
 			goto :startSkill
 		endif
@@ -1354,7 +1362,8 @@ getColor #colorFairy2 275 635
 	endif
 
 	getColor #color1 440 760
-	if #color1 == #colorGray
+	getColor #color2 440 752
+	if #color1 == #colorGray and #color2 == #colorGray
 		goto :closeMenu
 	endif
 
