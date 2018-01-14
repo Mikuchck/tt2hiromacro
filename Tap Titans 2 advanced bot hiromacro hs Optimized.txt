@@ -1,5 +1,5 @@
 // -  Tap Titans 2 AdvancedClickBot by Tune389
-// -  Changes by Mikuchck v2.5.4 rev 3
+// -  Changes by Mikuchck v2.5.4 rev 4
 // -  Changelog at end of file
 
 SCREEN_SIZE: 480x800
@@ -34,7 +34,7 @@ var #runActionsOnStart 1
 //; 1 = (default) run actions on script start
 //; 0 = run actions after given run time above
 
-var #percentManaToUseSkill 75
+var #percentManaToUseSkill 40
 // Script is clicking a bit faster so set it like 2% higher but dont set it above 100%
 
 var #fullManaSkill 7
@@ -79,19 +79,19 @@ var #enableSkills 1
 var #stopMasterAfterSkillsUnlocked 1
 var #cancelSkillsWhileUpgrading 0
 
-var #hsLvl 20
-var #dsLvl 7
-var #homLvl 7
-var #fsLvl 7
-var #wcLvl 7
-var #scLvl 20
+var #hsLvl 0
+var #dsLvl 0
+var #homLvl 0
+var #fsLvl 0
+var #wcLvl 0
+var #scLvl 0
 
 // After how many minutes script should start using skills
 var #startUsingHSAfter 0
-var #startUsingDSAfter 35
-var #startUsingHOMAfter 30
-var #startUsingFSAfter 28
-var #startUsingWCAfter 38
+var #startUsingDSAfter 23
+var #startUsingHOMAfter 20
+var #startUsingFSAfter 18
+var #startUsingWCAfter 26
 var #startUsingSCAfter 0
 
 //press given skills every X seconds
@@ -99,7 +99,7 @@ var #intervalCrit 20
 var #intervalFireBlade 20
 var #intervalMidas 20
 var #intervalHeroes 20
-var #intervalShadowClone 14
+var #intervalShadowClone 8
 
 //just level each skill once
 var #justUnlockSkills 1
@@ -306,8 +306,11 @@ var #resultClanQuest 0
 	
 	if #fullManaSkill > 0 and #resultUpdateTime == 0
 		#checkManaXCoord = 2 * #percentManaToUseSkill
-		getColor #color1 #checkManaXCoord 638
-		if #color1 == #colorWhite or #color1 == #colorMana or #color1 == #colorMana2 or #color1 == #colorMana3 or #color1 == #colorMana4 or #color1 == #colorMana5 or #color1 == #colorMana6 or #color1 == #colorMana7 or #color1 == #colorMana8 or #color1 == #colorMana9
+		getRGB #colorRed #colorGreen #colorBlue #checkManaXCoord 638
+//		toast checking mana
+//		getColor #color1 #checkManaXCoord 638
+//		if #color1 == #colorWhite or #color1 == #colorMana or #color1 == #colorMana2 or #color1 == #colorMana3 or #color1 == #colorMana4 or #color1 == #colorMana5 or #color1 == #colorMana6 or #color1 == #colorMana7 or #color1 == #colorMana8 or #color1 == #colorMana9
+		if #colorBlue == -1
 			toast Mana full starting something to dont waste regen time
 			goto :startSkill
 		endif
@@ -463,7 +466,7 @@ goto :start
 	#checkManaXCoord = 2 * #percentManaToUseSkill
 		getColor #color1 #checkManaXCoord 638
 	if #color1 == #colorWhite or #color1 == #colorMana
-		toast Mana full starting something to dont waste regen time
+		toast Mana full starting something to dont waste regen time in checkmanafunction
 		goto :startSkill
 	endif
 goto :start
